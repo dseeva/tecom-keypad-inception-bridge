@@ -1,0 +1,11 @@
+.pio/
+.vscode/
+flasher/build/
+flasher/dist/
+__pycache__/
+# never commit real settings or credentials
+config.json
+secrets*
+
+# the built flasher is attached to GitHub releases, not committed
+KeypadBridgeFlasher.exe
