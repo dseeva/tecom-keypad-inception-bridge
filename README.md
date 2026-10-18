@@ -100,8 +100,24 @@ Do this with **everything unpowered**. Double-check each wire against the table 
 | A | | D+ |
 | B | | D− |
 
-**MAX485 module with DE and RE pins:** same as above, plus join **DE** and **RE** together and wire them
-to a spare GPIO (GPIO4 is a good choice), then set `#define BUS_DE_PIN 4` in `src/shared.h` and rebuild.
+**Blue MAX485 module (pins DI, DE, RE, RO and VCC, B, A, GND):**
+
+| MAX485 module | ESP32 | Keypad |
+|---|---|---|
+| VCC | 3V3 | |
+| GND | GND | 0V (run one wire from ESP32 GND to keypad 0V) |
+| RO | GPIO16 | |
+| DI | GPIO17 | |
+| DE **and** RE (join them with a short wire) | GPIO4 | |
+| A | | D+ |
+| B | | D− |
+
+The firmware drives GPIO4 high while it transmits (`BUS_DE_PIN` in `src/shared.h`); on modules without DE/RE
+GPIO4 simply stays unconnected. The MAX485 is rated for 5 V but works at 3.3 V on a short bench run, and at
+3.3 V nothing on it can push more than 3.3 V into the ESP32. If replies are unreliable at 3.3 V, power it from
+the ESP32's **5V/VIN** pin instead and put a divider on RO (RO → 1 kΩ → GPIO16, GPIO16 → 2 kΩ → GND), because at
+5 V the RO output would otherwise send 5 V into GPIO16. These modules also carry a 120 Ω termination resistor
+across A/B, which is fine for a single keypad on the bench.
 
 The keypad's +12V and 0V go to the 12 V supply. **The ESP32 is powered by USB, never by the 12 V.**
 

@@ -9,10 +9,10 @@
 // ---------------------------------------------------------------- pins (change here if wired differently)
 #define BUS_RX_PIN 16       // RS485 module RXD / RO  -> ESP32 GPIO16
 #define BUS_TX_PIN 17       // RS485 module TXD / DI  -> ESP32 GPIO17
-#define BUS_DE_PIN -1       // DE+RE pin for MAX485-style modules; -1 = auto-direction module (no DE pin)
+#define BUS_DE_PIN 4        // DE+RE of MAX485-style modules (high = transmit); harmless if unconnected; -1 = never drive it
 #define BOOT_BUTTON_PIN 0   // hold BOOT for 5 s to forget the Wi-Fi settings
 
-#define FW_VERSION "1.0.0"
+#define FW_VERSION "1.0.1"
 #define LCD_W 40            // characters per keypad display line
 #define KEYPAD_SLOTS 8      // keypad "area numbers" 1..8
 
